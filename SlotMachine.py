@@ -58,10 +58,16 @@ def check():
         label3.configure(background="green")
 
     elif rng1 == rng2 and not rng2 == rng3:
-        print(f"{rng1} {rng2} {rng3} You lose.")
-        label1.configure(background="red")
-        label2.configure(background="red")
-        label3.configure(background="red")
+        print(f"{rng1} {rng2} {rng3} You lost.")
+        label1.configure(background="yellow")
+        label2.configure(background="yellow")
+        label3.configure(background="yellow")
+
+    elif rng2 == rng3 and not rng1 == rng2:
+        print(f"{rng1} {rng2} {rng3} You lost.")
+        label1.configure(background="yellow")
+        label2.configure(background="yellow")
+        label3.configure(background="yellow")
 
     else:
         print(f"{rng1} {rng2} {rng3} You lose.")
