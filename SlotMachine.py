@@ -56,18 +56,21 @@ def check():
             label2.configure(background="green")
             label3.configure(background="green")
             budget += bet * 50
+            money.configure(text=budget)
     
     elif rng1 == 6 and rng2 == 6 and rng3 == 6:
         label1.configure(background="red4")
         label2.configure(background="red4")
         label3.configure(background="red4")
         budget = round(budget / 666)
+        money.configure(text=budget)
 
     elif rng1 == 7 and rng2 == 7 and rng3 == 7:
         label1.configure(background="goldenrod")
         label2.configure(background="goldenrod")
         label3.configure(background="goldenrod")
         budget += bet * 777
+        money.configure(text=budget)
 
     elif rng2 == rng1 + 1 and rng3 == rng2 + 1:
         if not rng1 == 1:
@@ -75,43 +78,49 @@ def check():
             label2.configure(background="green yellow")
             label3.configure(background="green yellow")
             budget += bet * 10
+            money.configure(text=budget)
 
     elif rng1 == 1 and rng2 == 2 and rng3 == 3:
         label1.configure(background="green")
         label2.configure(background="green")
         label3.configure(background="green")
         budget += bet * 123
+        money.configure(text=budget)
 
     elif rng2 == rng1 - 1 and rng3 == rng2 - 1:
         label1.configure(background="green yellow")
         label2.configure(background="green yellow")
         label3.configure(background="green yellow")
         budget += bet * 10
+        money.configure(text=budget)
 
     elif rng1 == rng2 and not rng2 == rng3:
         label1.configure(background="yellow")
         label2.configure(background="yellow")
         label3.configure(background="yellow")
         budget += bet * 5
+        money.configure(text=budget)
 
     elif rng2 == rng3 and not rng1 == rng2:
         label1.configure(background="yellow")
         label2.configure(background="yellow")
         label3.configure(background="yellow")
         budget += bet * 5
+        money.configure(text=budget)
 
     elif rng1 == rng3 and not rng1 == rng2:
         label1.configure(background="orange")
         label2.configure(background="orange")
         label3.configure(background="orange")
         budget += bet * 2
+        money.configure(text=budget)
 
     else:
         label1.configure(background="red")
         label2.configure(background="red")
         label3.configure(background="red")
-        money.configure(text=budget)
         budget += round(bet / 4)
+        money.configure(text=budget)
 
     if budget <= 0:
         budget = 1
