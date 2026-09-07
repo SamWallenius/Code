@@ -1,6 +1,8 @@
 import random
 import tkinter as tk
 import tkinter.font as tfont
+from pynput.keyboard import Key , Listener , Controller
+Keyboard = Controller()
 
 bet = 1
 budget = 100
@@ -49,44 +51,110 @@ def check():
     global rolling, budget, bet
     rolling = False
     if rng1 == rng2 and rng2 == rng3:
-        print(f"{rng1} {rng2} {rng3} You win!")
-        label1.configure(background="green")
-        label2.configure(background="green")
-        label3.configure(background="green")
-        budget += bet * 15
+        if not rng1 == 6 and not rng1 == 7:
+            label1.configure(background="green")
+            label2.configure(background="green")
+            label3.configure(background="green")
+            budget += bet * 50
+    
+    elif rng1 == 6 and rng2 == 6 and rng3 == 6:
+        label1.configure(background="red4")
+        label2.configure(background="red4")
+        label3.configure(background="red4")
+        budget = round(budget / 666)
+
+    elif rng1 == 7 and rng2 == 7 and rng3 == 7:
+        label1.configure(background="goldenrod")
+        label2.configure(background="goldenrod")
+        label3.configure(background="goldenrod")
+        budget += bet * 777
 
     elif rng2 == rng1 + 1 and rng3 == rng2 + 1:
-        print(f"{rng1} {rng2} {rng3} You win!")
+        if not rng1 == 1:
+            label1.configure(background="green yellow")
+            label2.configure(background="green yellow")
+            label3.configure(background="green yellow")
+            budget += bet * 10
+
+    elif rng1 == 1 and rng2 == 2 and rng3 == 3:
         label1.configure(background="green")
         label2.configure(background="green")
         label3.configure(background="green")
-        budget += bet * 5
+        budget += bet * 123
+
+    elif rng2 == rng1 - 1 and rng3 == rng2 - 1:
+        label1.configure(background="green yellow")
+        label2.configure(background="green yellow")
+        label3.configure(background="green yellow")
+        budget += bet * 10
 
     elif rng1 == rng2 and not rng2 == rng3:
-        print(f"{rng1} {rng2} {rng3} You got your money back.")
         label1.configure(background="yellow")
         label2.configure(background="yellow")
         label3.configure(background="yellow")
-        budget += bet
+        budget += bet * 5
 
     elif rng2 == rng3 and not rng1 == rng2:
-        print(f"{rng1} {rng2} {rng3} You got your money back.")
         label1.configure(background="yellow")
         label2.configure(background="yellow")
         label3.configure(background="yellow")
-        budget += bet
+        budget += bet * 5
+
+    elif rng1 == rng3 and not rng1 == rng2:
+        label1.configure(background="orange")
+        label2.configure(background="orange")
+        label3.configure(background="orange")
+        budget += bet * 2
 
     else:
-        print(f"{rng1} {rng2} {rng3} You lose.")
         label1.configure(background="red")
         label2.configure(background="red")
         label3.configure(background="red")
-    money.configure(text=budget)
+        money.configure(text=budget)
+        budget += round(bet / 4)
+
+    if budget <= 0:
+        budget = 1
+        money.configure(text=budget)
+    if bet > budget:
+        bet = budget
+        betchange = "Bet:",bet
+        bettext.configure(text=betchange)
+
+def on_press(key):
+    global bet
+    try:
+        if key == key.up and bet < budget:
+            bet = bet + 1
+            betchange = "Bet:",bet
+            bettext.configure(text=betchange)
+        elif key == key.down and bet > 1:
+            bet = bet - 1
+            betchange = "Bet:",bet
+            bettext.configure(text=betchange)
+        elif key == key.right and bet * 2 < budget:
+            bet = bet * 2
+            betchange = "Bet:",bet
+            bettext.configure(text=betchange)
+        elif key == key.right and bet * 2 > budget:
+            bet = budget
+            betchange = "Bet:",bet
+            bettext.configure(text=betchange)
+        elif key == key.left and bet > 1:
+            bet = round(bet / 2)
+            betchange = "Bet:",bet
+            bettext.configure(text=betchange)
+        if bet <= 0:
+            bet = 1
+            betchange = "Bet:",bet
+            bettext.configure(text=betchange)
+    except AttributeError:
+        pass
 
 root = tk.Tk()
 root.title("Slot Machine")
 root.configure(background="black")
-root.geometry("850x150")
+root.geometry("1000x150")
 
 textfont = tfont.Font(family="Arial", size=80)
 
@@ -101,7 +169,7 @@ label3.pack(side=tk.LEFT, pady=20)
 
 button = tk.Button(
     root,
-    text="ROLL (1$)",
+    text="ROLL",
     command=roll,
     height=6,
     width=12
@@ -117,4 +185,6 @@ moneytext.pack(side=tk.LEFT, pady=20)
 bettext = tk.Label(root,font=textfont,text="Bet: 1")
 bettext.pack(side=tk.RIGHT, pady=20)
 
-root.mainloop()
+with Listener(on_press=on_press) as listener:
+    root.mainloop()
+    listener.join()
