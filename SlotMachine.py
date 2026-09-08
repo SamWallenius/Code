@@ -50,23 +50,19 @@ def spin(count):
 def check():
     global rolling, budget, bet
     rolling = False
-    rng1 = 1
-    rng2 = 2
-    rng3 = 3
     if rng1 == rng2 and rng2 == rng3:
-        if rng1 == 7:
+        if not rng1 == 7:
             label1.configure(background="green")
             label2.configure(background="green")
             label3.configure(background="green")
             budget += bet * 50
             money.configure(text=budget)
-
-    elif rng1 == 7 and rng2 == 7 and rng3 == 7:
-        label1.configure(background="goldenrod")
-        label2.configure(background="goldenrod")
-        label3.configure(background="goldenrod")
-        budget += bet * 777
-        money.configure(text=budget)
+        else:
+            label1.configure(background="goldenrod")
+            label2.configure(background="goldenrod")
+            label3.configure(background="goldenrod")
+            budget += bet * 777
+            money.configure(text=budget)
 
     elif rng2 == rng1 + 1 and rng3 == rng2 + 1:
         if not rng1 == 1:
