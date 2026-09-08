@@ -163,7 +163,8 @@ def on_press(key):
 root = tk.Tk()
 root.title("Slot Machine")
 root.configure(background="black")
-root.geometry("1000x150")
+root.geometry("1000x1000")
+root.attributes("-fullscreen", True)
 
 textfont = tfont.Font(family="Arial", size=80)
 
