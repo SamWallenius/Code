@@ -51,19 +51,12 @@ def check():
     global rolling, budget, bet
     rolling = False
     if rng1 == rng2 and rng2 == rng3:
-        if not rng1 == 6 and not rng1 == 7:
+        if rng1 == 7:
             label1.configure(background="green")
             label2.configure(background="green")
             label3.configure(background="green")
             budget += bet * 50
             money.configure(text=budget)
-    
-    elif rng1 == 6 and rng2 == 6 and rng3 == 6:
-        label1.configure(background="red4")
-        label2.configure(background="red4")
-        label3.configure(background="red4")
-        budget = round(budget / 666)
-        money.configure(text=budget)
 
     elif rng1 == 7 and rng2 == 7 and rng3 == 7:
         label1.configure(background="goldenrod")
