@@ -148,14 +148,23 @@ def on_press(key):
             bet = 1
             betchange = "Bet:",bet
             bettext.configure(text=betchange)
+        elif key == key.f11:
+            if root.attributes("-fullscreen"):
+                root.attributes("-fullscreen", False)
+            else:
+                root.attributes("-fullscreen", True)
+        elif key == key.alt_gr:
+            if root.attributes("-topmost"):
+                root.attributes("-topmost", False)
+            else:
+                root.attributes("-topmost", True)
     except AttributeError:
         pass
 
 root = tk.Tk()
 root.title("Slot Machine")
 root.configure(background="black")
-root.geometry("1000x1000")
-root.attributes("-fullscreen", True)
+root.geometry("1000x150")
 
 textfont = tfont.Font(family="Arial", size=80)
 
