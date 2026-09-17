@@ -5,6 +5,33 @@ from pynput.keyboard import Key , Listener , Controller
 import os
 Keyboard = Controller()
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.join(base_dir, "Data.txt")
+if not os.path.exists(data_path):
+    with open(data_path, "w", encoding="utf-8") as f:
+        f.write("")
+file = open(data_path, "a+", encoding="utf-8")
+
+
+def save():
+    global budget
+    file.seek(0)
+    file.truncate(0)    
+    file.write(str(budget))
+    file.flush() 
+def load():
+    global budget
+    file.seek(0)
+    data = file.read()
+    if data:
+        budget = int(data)
+        money.configure(text=budget)
+def delete():
+    global budget, bet
+    budget = 100
+    bet = 1
+    money.configure(text=budget)
+    bettext.configure(text=f"Bet: {bet}")
 bet = 1
 budget = 100
 rng1 = 0
@@ -149,26 +176,33 @@ def on_press(key):
             bet = 1
             betchange = "Bet:",bet
             bettext.configure(text=betchange)
-        elif key == key.f11:
-            if root.attributes("-fullscreen"):
-                root.attributes("-fullscreen", False)
-            else:
-                root.attributes("-fullscreen", True)
-        elif key == key.alt_gr:
-            if root.attributes("-topmost"):
-                root.attributes("-topmost", False)
-            else:
-                root.attributes("-topmost", True)
-        elif key == key.esc:
-            os._exit(0)
-
     except AttributeError:
         pass
+
+def fullscreen():
+    if root.attributes("-fullscreen"):
+        root.attributes("-fullscreen", False)
+    else:
+        root.attributes("-fullscreen", True)
+
+def ontop():
+    if root.attributes("-topmost"):
+        root.attributes("-topmost", False)
+    else:
+        root.attributes("-topmost", True)
+
+def exit():
+    os._exit(0)
 
 root = tk.Tk()
 root.title("Slot Machine")
 root.configure(background="black")
 root.geometry("1000x150")
+root.bind("f"+"u", lambda event: fullscreen())
+root.bind("t"+"o", lambda event: ontop())
+root.bind("s"+"1", lambda event: save())
+root.bind("e"+"x", lambda event: exit())
+root.bind("n"+"e", lambda event: delete())
 
 textfont = tfont.Font(family="Arial", size=80)
 
@@ -198,6 +232,8 @@ moneytext.pack(side=tk.LEFT, pady=20)
 
 bettext = tk.Label(root,font=textfont,text="Bet: 1")
 bettext.pack(side=tk.RIGHT, pady=20)
+
+load()
 
 with Listener(on_press=on_press) as listener:
     root.mainloop()
