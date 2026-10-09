@@ -109,10 +109,13 @@ root = tk.Tk()
 root.title("Hangman")
 root.configure(background="black")
 root.geometry("400x400")
-img = ImageTk.PhotoImage(Image.open(folder+"/Gubbe7.jpg"))
-panel = tk.Label(root, image = img, width=10000, height=10000)
-panel.pack()
-panel.place(relx=0.5, rely=0.35, anchor="center")
+try: img = ImageTk.PhotoImage(Image.open(folder+"/Gubbe7.jpg")) 
+except:
+    print("No Image")
+else:
+    panel = tk.Label(root, image = img, width=10000, height=10000)
+    panel.pack()
+    panel.place(relx=0.5, rely=0.35, anchor="center")
 
 button1 = tk.Button(
     root,
