@@ -192,6 +192,7 @@ def ontop():
         root.attributes("-topmost", True)
 
 def exit():
+    save()
     os._exit(0)
 
 root = tk.Tk()
