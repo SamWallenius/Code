@@ -1,24 +1,17 @@
-s = "561231-4913"
-a = s[:-1]
-n = a.replace("-","")
-i = 1
-l = ""
-m = 0
+import random
+l = []
+l1 = []
+l2 = []
 
-for c in n:
-    if i == 1:
-        l = l+str(int(c) * 2)
-    elif i == 2:
-        l = l+str(int(c) * 1)
-    i = i + 1
-    if i == 3:
-        i = 1
+for i in range(1,20):
+    l.append(random.randrange(1,50))
 
-m = sum([int(c2) for c2 in l])
+for i in range(len(l)):
+    n = l[i]
+    if n % 2 == 0:
+        l1.append(n)
+    else:
+        l2.append(n)
 
-t = m+int(s[10])
-
-if float(t/10) == float(str(t)[0]):
-    print("Ditt personnummer är korrekt")
-else:
-    print("Ditt personnummer är inte korrekt")
+print("Jämna tal:",l1)
+print("Udda tal:",l2)

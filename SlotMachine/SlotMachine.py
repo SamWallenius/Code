@@ -1,7 +1,7 @@
 import random
 import tkinter as tk
 import tkinter.font as tfont
-from pynput.keyboard import Key , Listener , Controller
+from pynput.keyboard import Key, Listener, Controller
 import os
 Keyboard = Controller()
 
