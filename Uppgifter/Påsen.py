@@ -33,7 +33,7 @@ def show():
         if int(20/len(str(bag))) > 20:
             main.configure(font=tfont.Font(family="Arial", size=20))
         else:
-            main.configure(font=tfont.Font(family="Arial", size=int(20/len(str(bag)))))
+            main.configure(font=tfont.Font(family="Arial", size=int(20/len(str(bag)*20))))
 def find():
     global string, typing
     if typing == False:
