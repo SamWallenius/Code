@@ -19,30 +19,43 @@ def on_press(key):
         string += press
         string = string.replace("'","")
         main.configure(text=string)
-        if int(20/len(string)*20) > 20:
-            main.configure(font=tfont.Font(family="Arial", size=20))
-        else:
-            main.configure(font=tfont.Font(family="Arial", size=int(20/len(string)*20)))
-    if typing == True and press == "Key.enter":
-        typing = False
+        if len(string) > 0:
+            if int(20/len(string)*20) > 20:
+                main.configure(font=tfont.Font(family="Arial", size=20))
+            else:
+                main.configure(font=tfont.Font(family="Arial", size=int(20/len(string)*20)))
+    if typing == True:
+        if press == "Key.enter":
+            typing = False
+        elif press == "Key.backspace" and len(string) > 0:
+            string = string[:-1]
+            string = string.replace("'","")
+            main.configure(text=string)
+            if len(string) > 0:
+                if int(20/len(string)*20) > 20:
+                    main.configure(font=tfont.Font(family="Arial", size=20))
+                else:
+                    main.configure(font=tfont.Font(family="Arial", size=int(20/len(string)*20)))
 
 def show():
     global typing, main
     if typing == False:
         main.configure(text=bag)
-        if int(20/len(str(bag))) > 20:
-            main.configure(font=tfont.Font(family="Arial", size=20))
-        else:
-            main.configure(font=tfont.Font(family="Arial", size=int(20/len(str(bag)*20))))
+        if len(string) > 0:
+            if int(20/len(str(bag))) > 20:
+                main.configure(font=tfont.Font(family="Arial", size=20))
+            else:
+                main.configure(font=tfont.Font(family="Arial", size=int(20/len(str(bag)*20))))
 def find():
     global string, typing
     if typing == False:
         amount = bag.count(string)
         main.configure(text="Det finns "+str(amount)+" av "+string+" i påsen.")
-        if int(10/(len(string)*20)) > 20:
-            main.configure(font=tfont.Font(family="Arial", size=20))
-        else:
-            main.configure(font=tfont.Font(family="Arial", size=int(10/(len(string)*20))))
+        if len(string) > 0:
+            if int(10/(len(string)*20)) > 20:
+                main.configure(font=tfont.Font(family="Arial", size=20))
+            else:
+                main.configure(font=tfont.Font(family="Arial", size=int(10/(len(string)*20))))
 
 def save():
     global string, typing
