@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 import random
 import tkinter.font as tfont
 import os
-from pynput.keyboard import Key , Listener , Controller
+from pynput.keyboard import Key, Listener, Controller
 Keyboard = Controller()
 
 bag = []
@@ -11,9 +11,14 @@ press = ""
 string = ""
 main = ""
 typing = True
+reset = False
 
 def on_press(key):
-    global press, string, main, typing
+    global press, string, main, typing, reset
+    if reset == True:
+        reset = False
+        string = ""
+        main.configure(text="")
     press = str(key)
     if len(press) == 3 and typing == True:
         string += press
@@ -38,24 +43,30 @@ def on_press(key):
                     main.configure(font=tfont.Font(family="Arial", size=int(20/len(string)*20)))
 
 def show():
-    global typing, main
+    global typing, main, reset
     if typing == False:
         main.configure(text=bag)
-        if len(string) > 0:
-            if int(20/len(str(bag))) > 20:
+        typing = True
+        reset = True
+        if len(str(bag)) > 0:
+            if int(20/len(str(bag))*20) > 20:
                 main.configure(font=tfont.Font(family="Arial", size=20))
             else:
-                main.configure(font=tfont.Font(family="Arial", size=int(20/len(str(bag)*20))))
+                main.configure(font=tfont.Font(family="Arial", size=int(20/len(str(bag))*20)))
+
 def find():
-    global string, typing
+    global string, typing, reset
     if typing == False:
         amount = bag.count(string)
+        typing = True
+        reset = True
         main.configure(text="Det finns "+str(amount)+" av "+string+" i påsen.")
         if len(string) > 0:
-            if int(10/(len(string)*20)) > 20:
-                main.configure(font=tfont.Font(family="Arial", size=20))
-            else:
-                main.configure(font=tfont.Font(family="Arial", size=int(10/(len(string)*20))))
+            if len(string) > 0:
+                if int(15/len(string)*20) > 15:
+                    main.configure(font=tfont.Font(family="Arial", size=15))
+                else:
+                    main.configure(font=tfont.Font(family="Arial", size=int(15/len(string)*20)))
 
 def save():
     global string, typing
